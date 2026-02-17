@@ -249,7 +249,6 @@
     let metodoPago = 'Efectivo';
     let gpsURL = "";
 
-    // FUNCIÓN PARA CARGAR DATOS GUARDADOS Y SALUDAR
     window.onload = function() {
         const nombreGuardado = localStorage.getItem('esniloma_nombre');
         const direccionGuardada = localStorage.getItem('esniloma_direccion');
@@ -304,8 +303,11 @@
         if (navigator.geolocation) {
             document.getElementById('txt-ub').innerText = "Localizando...";
             navigator.geolocation.getCurrentPosition(pos => {
+                // Corrección de sintaxis en template literal y URL
                 gpsURL = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
                 document.getElementById('txt-ub').innerText = "✅ Ubicación Guardada";
+            }, () => {
+                document.getElementById('txt-ub').innerText = "❌ Error al localizar";
             });
         }
     }
@@ -349,15 +351,15 @@
         localStorage.setItem('esniloma_nombre', nombre);
         localStorage.setItem('esniloma_direccion', direccion);
 
-      
-new QRCode(document.getElementById("qrcode"), {
-    // REEMPLAZA LO QUE ESTÁ ENTRE COMILLAS POR TU ENLACE REAL DE GITHUB
-    text: "https://protoesniloma.github.io/esniloma/", 
-    width: 128,
-    height: 128,
-    colorDark : "#0f172a",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
+        // Limpiar el QR previo para evitar duplicados
+        document.getElementById("qrcode").innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://protoesniloma.github.io/esniloma/", 
+            width: 128,
+            height: 128,
+            colorDark : "#0f172a",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
         });
 
         let vueltoMsg = "";
@@ -386,7 +388,8 @@ new QRCode(document.getElementById("qrcode"), {
         carrito.forEach(i => htmlTicket += `• ${i.cantidad}x ${i.nombre}<br>`);
         document.getElementById('ticket-info').innerHTML = htmlTicket;
 
-        window.open(18097600364?text=${msg}`);
+        // Corrección de la URL de WhatsApp y el uso de backticks
+        window.open(`https://wa.me/18097600364?text=${msg}`);
         
         cerrarCarrito();
         localStorage.removeItem('esniloma_cart');
