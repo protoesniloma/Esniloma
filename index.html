@@ -7,6 +7,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
         :root {
@@ -108,6 +109,10 @@
         }
         .factura-visible { display: block !important; animation: popFactura 0.4s forwards; }
         @keyframes popFactura { to { transform: translate(-50%, -50%) scale(1); } }
+
+        /* ESTILO PARA EL QR */
+        #area-qr { margin: 15px auto; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        #qrcode img { border: 4px solid white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -216,6 +221,12 @@
         <p style="font-size:12px; color:#666; margin-top:5px;">Tu pedido ya está en camino.</p>
     </div>
     <div id="ticket-info" style="margin: 20px 0; font-size:13px; background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1; line-height:1.6;"></div>
+    
+    <div id="area-qr">
+        <div id="qrcode"></div>
+        <span style="font-size: 10px; color: #888;">Escanea para compartir la App</span>
+    </div>
+
     <button onclick="location.reload()" style="width:100%; padding:15px; border:none; background:var(--azul-premium); color:white; border-radius:15px; font-weight:800; cursor:pointer;">Cerrar Factura</button>
 </div>
 
@@ -335,11 +346,20 @@
         
         if(!nombre || carrito.length === 0) return alert("Por favor completa tu nombre y añade productos.");
 
-        // GUARDAR DATOS DEL CLIENTE
         localStorage.setItem('esniloma_nombre', nombre);
         localStorage.setItem('esniloma_direccion', direccion);
 
-        // CÁLCULO DE VUELTO
+        // GENERAR QR AL MOMENTO DE ENVIAR
+        document.getElementById("qrcode").innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), {
+            text: https://protoesniloma.github.io/Esniloma/
+            width: 120,
+            height: 120,
+            colorDark : "#0f172a",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
         let vueltoMsg = "";
         let vueltoTicket = "";
         if(metodoPago === 'Efectivo' && pagoCon) {
@@ -360,7 +380,6 @@
         carrito.forEach(i => msg += `- ${i.cantidad}x ${i.nombre}%0A`);
         msg += `%0A💰 *TOTAL: ${totalTexto}*`;
 
-        // Generar Factura Visual con Vuelto
         let htmlTicket = `<strong>Cliente:</strong> ${nombre}<br><strong>Pago:</strong> ${metodoPago}<br>`;
         if(metodoPago === 'Efectivo' && pagoCon) htmlTicket += `<strong>Paga con:</strong> $${parseFloat(pagoCon).toLocaleString('es-CO')}${vueltoTicket}<br>`;
         htmlTicket += `<strong>Total:</strong> ${totalTexto}<hr>`;
