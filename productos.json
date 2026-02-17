@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "nombre": "Tenis Sport Pro",
+    "precio": "1200",
+    "categoria": "Calzado",
+    "img": "img/tenis1.jpg"
+  },
+  {
+    "id": "2",
+    "nombre": "Gorra Esniloma",
+    "precio": "450",
+    "categoria": "Accesorios",
+    "img": "img/gorra.jpg"
+  }
+]
