@@ -14,3 +14,26 @@
     "img": "img/gorra.jpg"
   }
 ]
+[
+  {
+    "id": 1,
+    "nombre": "Tenis Esniloma Pro",
+    "precio": 1200,
+    "categoria": "Calzado",
+    "img": "https://via.placeholder.com/200"
+  },
+  {
+    "id": 2,
+    "nombre": "Gorra Edición Especial",
+    "precio": 450,
+    "categoria": "Accesorios",
+    "img": "https://via.placeholder.com/200"
+  },
+  {
+    "id": 3,
+    "nombre": "Camiseta Algodón",
+    "precio": 800,
+    "categoria": "Ropa",
+    "img": "https://via.placeholder.com/200"
+  }
+]
