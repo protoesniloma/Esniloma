@@ -1,39 +1,23 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "nombre": "Tenis Sport Pro",
-    "precio": "1200",
-    "categoria": "Calzado",
+    "precio": 1200,
+    "cat": "calzado",
     "img": "img/tenis1.jpg"
   },
   {
-    "id": "2",
-    "nombre": "Gorra Esniloma",
-    "precio": "450",
-    "categoria": "Accesorios",
-    "img": "img/gorra.jpg"
-  }
-]
-[
-  {
-    "id": 1,
-    "nombre": "Tenis Esniloma Pro",
-    "precio": 1200,
-    "categoria": "Calzado",
-    "img": "https://via.placeholder.com/200"
-  },
-  {
     "id": 2,
-    "nombre": "Gorra Edición Especial",
+    "nombre": "Gorra Esniloma",
     "precio": 450,
-    "categoria": "Accesorios",
-    "img": "https://via.placeholder.com/200"
+    "cat": "aseo",
+    "img": "img/gorra.jpg"
   },
   {
     "id": 3,
-    "nombre": "Camiseta Algodón",
-    "precio": 800,
-    "categoria": "Ropa",
-    "img": "https://via.placeholder.com/200"
+    "nombre": "Leche Entera 1 Litro",
+    "precio": 4200,
+    "cat": "lacteos",
+    "img": "https://cdn-icons-png.flaticon.com/512/869/869612.png"
   }
 ]
