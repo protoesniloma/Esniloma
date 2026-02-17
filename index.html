@@ -349,9 +349,7 @@
         localStorage.setItem('esniloma_nombre', nombre);
         localStorage.setItem('esniloma_direccion', direccion);
 
-        // GENERAR QR AL MOMENTO DE ENVIAR
-       document.getElementById("qrcode").innerHTML = ""; // Limpia el anterior
-
+      
 new QRCode(document.getElementById("qrcode"), {
     // REEMPLAZA LO QUE ESTÁ ENTRE COMILLAS POR TU ENLACE REAL DE GITHUB
     text: "https://protoesniloma.github.io/tu-repositorio/", 
@@ -413,5 +411,6 @@ new QRCode(document.getElementById("qrcode"), {
 </script>
 </body>
 </html>
+
 
 
