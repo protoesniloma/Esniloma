@@ -3,21 +3,28 @@
     "id": 1,
     "nombre": "Tenis Sport Pro",
     "precio": 1200,
-    "cat": "calzado",
+    "categoria": "Calzado",
     "img": "img/tenis1.jpg"
   },
   {
     "id": 2,
     "nombre": "Gorra Esniloma",
     "precio": 450,
-    "cat": "aseo",
+    "categoria": "Accesorios",
     "img": "img/gorra.jpg"
   },
   {
     "id": 3,
     "nombre": "Leche Entera 1 Litro",
     "precio": 4200,
-    "cat": "lacteos",
+    "categoria": "Lacteos",
     "img": "https://cdn-icons-png.flaticon.com/512/869/869612.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Arroz Premium 5lb",
+    "precio": 150,
+    "categoria": "Aseo",
+    "img": "https://via.placeholder.com/200"
   }
 ]
