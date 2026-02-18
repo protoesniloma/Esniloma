@@ -15,16 +15,9 @@
   },
   {
     "id": 3,
-    "nombre": "Leche Entera 1 Litro",
-    "precio": 4200,
+    "nombre": "Leche Entera",
+    "precio": 80,
     "categoria": "Lacteos",
-    "img": "https://cdn-icons-png.flaticon.com/512/869/869612.png"
-  },
-  {
-    "id": 4,
-    "nombre": "Arroz Premium 5lb",
-    "precio": 150,
-    "categoria": "Aseo",
     "img": "https://via.placeholder.com/200"
   }
 ]
