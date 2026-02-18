@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ESNILOMA | Tienda Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+--azul-premium:#0f172a;
+--verde-confirmar:#22c55e;
+--fondo-app:#f8fafc;
+--tarjeta:#ffffff;
+--texto-principal:#1e293b;
+--texto-secundario:#64748b;
+--accent:#3b82f6;
+}
+
+body{font-family:'Outfit',sans-serif;background:#000;margin:0;display:flex;justify-content:center;color:var(--texto-principal)}
+.app-container{width:100%;max-width:430px;background:var(--fondo-app);min-height:100vh;padding-bottom:110px}
+
+.top-nav{background:var(--tarjeta);padding:20px;position:sticky;top:0}
+.search-container{background:rgba(0,0,0,.05);border-radius:18px;display:flex;align-items:center;padding:12px 15px;gap:10px}
+.search-container input{background:none;border:none;width:100%;outline:none;font-size:16px}
+
+.categories-nav{display:flex;gap:15px;padding:20px;overflow-x:auto}
+.cat-item{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:75px;cursor:pointer}
+.cat-icon{width:60px;height:60px;background:var(--tarjeta);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.cat-item.active .cat-icon{background:var(--azul-premium);color:white}
+
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:0 20px}
+.card{background:var(--tarjeta);border-radius:28px;padding:15px;position:relative}
+.card img{width:100%;height:100px;object-fit:contain}
+.card h3{font-size:14px;margin:12px 0 4px}
+.card .price{font-weight:800;color:var(--azul-premium);font-size:17px}
+.add-btn{position:absolute;bottom:15px;right:15px;background:var(--azul-premium);color:white;border:none;width:38px;height:38px;border-radius:14px}
+
+.bottom-nav{position:fixed;bottom:25px;width:85%;max-width:380px;left:50%;transform:translateX(-50%);background:var(--azul-premium);border-radius:25px;display:flex;justify-content:space-around;padding:15px 0}
+.nav-link{font-size:26px;color:rgba(255,255,255,.5);cursor:pointer}
+.nav-link.active{color:white}
+
+#modal-carrito{position:fixed;bottom:-100%;left:0;width:100%;height:92%;background:var(--tarjeta);z-index:2000;transition:.6s;border-top-left-radius:35px;border-top-right-radius:35px;display:flex;flex-direction:column}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;z-index:1500}
+.input-entrega{width:100%;padding:15px;margin-bottom:10px;border-radius:15px;border:1px solid rgba(0,0,0,.1);background:var(--fondo-app)}
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+<nav class="top-nav">
+<div class="search-container">
+<ion-icon name="search-outline"></ion-icon>
+<input type="text" id="inputBusqueda" placeholder="Buscar..." oninput="ejecutarFiltros()">
+</div>
+</nav>
+
+<section class="categories-nav">
+<div class="cat-item active" onclick="seleccionarCategoria('todos',this)">
+<div class="cat-icon"><ion-icon name="grid-outline"></ion-icon></div>
+<span>Todo</span>
+</div>
+</section>
+
+<main class="products-grid" id="grid-productos"></main>
+
+<nav class="bottom-nav">
+<div class="nav-link active" onclick="cerrarCarrito()"><ion-icon name="home-sharp"></ion-icon></div>
+<div class="nav-link" onclick="abrirCarrito()">
+<ion-icon name="bag-handle-sharp"></ion-icon>
+<span id="cart-count" style="position:absolute;top:-5px;right:-10px;background:var(--verde-confirmar);color:white;font-size:10px;padding:3px 7px;border-radius:10px;display:none">0</span>
+</div>
+</nav>
+
+</div>
+
+<div id="overlay" onclick="cerrarCarrito()"></div>
+
+<div id="modal-carrito">
+<div style="padding:25px">
+<h2>Mi Pedido</h2>
+<div id="lista-items"></div>
+
+<input type="text" id="nombre-cliente" class="input-entrega" placeholder="Nombre">
+<input type="text" id="direccion-cliente" class="input-entrega" placeholder="Dirección">
+
+<div style="display:flex;justify-content:space-between;margin:20px 0">
+<span>Total:</span>
+<span id="total-monto" style="font-size:24px;font-weight:800">RD$0</span>
+</div>
+
+<button onclick="enviarWhatsApp()" style="width:100%;background:var(--verde-confirmar);color:white;border:none;padding:15px;border-radius:20px;font-weight:800">
+Confirmar por WhatsApp
+</button>
+</div>
+</div>
+
+<script>
+
+const productos=[
+{nombre:"Pechuga de Pollo x 500g",precio:14500,cat:"carnes",img:"https://cdn-icons-png.flaticon.com/512/3143/3143636.png"},
+{nombre:"Leche Entera 1 Litro",precio:4200,cat:"lacteos",img:"https://cdn-icons-png.flaticon.com/512/869/869612.png"},
+{nombre:"Arroz Premium 1kg",precio:5200,cat:"despensa",img:"https://cdn-icons-png.flaticon.com/512/2619/2619556.png"},
+{nombre:"Coca-Cola 1.5L",precio:6500,cat:"bebidas",img:"https://cdn-icons-png.flaticon.com/512/2405/2405479.png"}
+];
+
+let carrito=[];
+
+function renderizar(lista){
+const grid=document.getElementById('grid-productos');
+grid.innerHTML=lista.map(p=>`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.nombre}</h
